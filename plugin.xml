@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="core.UnwantedJar">
+         <action
+               class="com.thalesgroup.optet.twmanagement.popup.actions.NewAction"
+               enablesFor="1"
+               id="com.thalesgroup.optet.twmanagement.newAction"
+               label="New Action"
+               menubarPath="OptetAnalysis.menu1/group1">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>
