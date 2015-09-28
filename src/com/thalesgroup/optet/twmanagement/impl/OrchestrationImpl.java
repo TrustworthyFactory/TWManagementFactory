@@ -126,6 +126,10 @@ public class OrchestrationImpl implements OrchestrationInterface {
 	 */
 	@Override
 	public void staticAnalyse(IProject project) {
+		
+		if (staticAnalysisplugin.size() == 0)
+			return;
+		
 		// TODO Auto-generated method stub
 		staticInProgress = true;
 		currentFinishedStaticAnalysisplugin.clear();
@@ -172,45 +176,47 @@ public class OrchestrationImpl implements OrchestrationInterface {
 	@Override
 	public void staticJMLAnalyse(IProject project) {
 		// TODO Auto-generated method stub
-		jmlInProgress = true;
-		currentFinishedStaticAnalysisplugin.clear();
-		List<IFile> srcPath = getJavaProjectSourceDirectories(project);
-
-
-		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
-		ServiceReference<EventAdmin> ref = Activator.getContext().getServiceReference(EventAdmin.class);
-		EventAdmin eventAdmin = Activator.getContext().getService(ref);
-		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
-		Map<String,Object> properties = new HashMap<String, Object>();
-		properties.put("DATA", new Date());
-		properties.put("project", project);
-		properties.put("sources", srcPath);
-		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
-
-
-		Properties prop = new Properties();
-		String projectID = null;
-		String projectType = null;
-		try {
-			prop.load(project.getFile("/Optet/Optet.properties").getContents());
-			projectID = prop.getProperty("svn.project.selected");
-			projectType = prop.getProperty("project.type");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (CoreException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-		List<Evidence> evidences = settings.getEvidences(projectID);
-		properties.put("evidences", evidences);
-		properties.put("projectType", projectType);
-
-		Event event = new Event("viewcommunication/staticJMLAnalyse", properties);
-		eventAdmin.sendEvent(event);
-		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
+		
+		jmlInProgress = false;
+//		jmlInProgress = true;
+//		currentFinishedStaticAnalysisplugin.clear();
+//		List<IFile> srcPath = getJavaProjectSourceDirectories(project);
+//
+//
+//		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
+//		ServiceReference<EventAdmin> ref = Activator.getContext().getServiceReference(EventAdmin.class);
+//		EventAdmin eventAdmin = Activator.getContext().getService(ref);
+//		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
+//		Map<String,Object> properties = new HashMap<String, Object>();
+//		properties.put("DATA", new Date());
+//		properties.put("project", project);
+//		properties.put("sources", srcPath);
+//		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
+//
+//
+//		Properties prop = new Properties();
+//		String projectID = null;
+//		String projectType = null;
+//		try {
+//			prop.load(project.getFile("/Optet/Optet.properties").getContents());
+//			projectID = prop.getProperty("svn.project.selected");
+//			projectType = prop.getProperty("project.type");
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		} catch (CoreException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//
+//
+//		List<Evidence> evidences = settings.getEvidences(projectID);
+//		properties.put("evidences", evidences);
+//		properties.put("projectType", projectType);
+//
+//		Event event = new Event("viewcommunication/staticJMLAnalyse", properties);
+//		eventAdmin.sendEvent(event);
+//		PluginHelper.getInstance().logInfo("rrrrrrrrrrrrrrrrrrr " );
 
 	}
 
@@ -220,6 +226,9 @@ public class OrchestrationImpl implements OrchestrationInterface {
 	@Override
 	public void runtimeAnalyse(IProject project) {
 		// TODO Auto-generated method stub
+		if (runtimeAnalysisPlugin.size() == 0)
+			return;
+		
 		runtimeInProgress = true;
 		currentFinishedRuntimeAnalysisPlugin.clear();
 		List<IFile> srcPath = getJavaProjectSourceDirectories(project);
